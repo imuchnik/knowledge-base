@@ -29,6 +29,7 @@ async def root():
         "endpoints": {
             "upload": "/api/v1/documents/upload",
             "batch_upload": "/api/v1/documents/upload-batch",
+            "documents": "/api/v1/documents",
             "search": "/api/v1/search",
             "ask": "/api/v1/qa/ask",
             "completeness": "/api/v1/qa/completeness",

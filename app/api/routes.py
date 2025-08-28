@@ -9,7 +9,7 @@ from app.core.config import settings
 from app.models.schemas import (
     DocumentUpload, SearchQuery, SearchResult, QuestionAnswer, 
     AnswerResponse, CompletenessCheck, CompletenessResponse,
-    IndexStatus, DocumentDelete
+    IndexStatus, DocumentDelete, DocumentListResponse
 )
 from app.services.document_processor import DocumentProcessor
 from app.services.vector_store import VectorStore
@@ -144,3 +144,12 @@ async def update_document(document_id: str, file: UploadFile = File(...)):
     await delete_document(document_id)
     
     return await upload_document(file)
+
+@router.get("/documents", response_model=DocumentListResponse)
+async def list_documents():
+    documents = vector_store.get_all_documents()
+    
+    return DocumentListResponse(
+        total_documents=len(documents),
+        documents=documents
+    )

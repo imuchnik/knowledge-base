@@ -77,3 +77,15 @@ class DocumentDelete(BaseModel):
     document_id: str
     status: str
     chunks_deleted: int
+
+class DocumentInfo(BaseModel):
+    document_id: str
+    filename: str
+    document_type: str
+    chunk_count: int
+    created_at: str
+    size: Optional[int] = None
+
+class DocumentListResponse(BaseModel):
+    total_documents: int
+    documents: List[DocumentInfo]

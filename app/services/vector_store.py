@@ -140,3 +140,30 @@ class VectorStore:
             "index_size_mb": persist_dir_size / (1024 * 1024),
             "collection_name": self.collection_name
         }
+    
+    def get_all_documents(self) -> List[Dict[str, Any]]:
+        all_data = self.collection.get()
+        
+        if not all_data or not all_data.get("ids"):
+            return []
+        
+        documents = {}
+        
+        for i, (chunk_id, metadata) in enumerate(zip(all_data["ids"], all_data["metadatas"])):
+            if not metadata:
+                continue
+                
+            document_id = chunk_id.rsplit("_", 1)[0] if chunk_id else None
+            
+            if document_id:
+                if document_id not in documents:
+                    documents[document_id] = {
+                        "document_id": document_id,
+                        "filename": metadata.get("filename", ""),
+                        "document_type": metadata.get("document_type", ""),
+                        "created_at": metadata.get("created_at", ""),
+                        "chunk_count": 0
+                    }
+                documents[document_id]["chunk_count"] += 1
+        
+        return list(documents.values())
