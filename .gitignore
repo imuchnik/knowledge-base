@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+uploaded_documents/
+chroma_db/
+*.log
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+.tox/
+
+# Temporary files
+*.tmp
+*.temp
+sample_*.txt
