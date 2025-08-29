@@ -73,20 +73,14 @@ class VectorStore:
         self,
         query: str,
         max_results: int = 10,
-        document_ids: Optional[List[str]] = None,
         similarity_threshold: float = 0.7
     ) -> List[SearchResult]:
         
         query_embedding = self.embedding_model.encode([query])
         
-        where_clause = None
-        if document_ids:
-            where_clause = {"document_id": {"$in": document_ids}}
-        
         results = self.collection.query(
             query_embeddings=query_embedding.tolist(),
-            n_results=max_results,
-            where=where_clause
+            n_results=max_results
         )
         
         search_results = []

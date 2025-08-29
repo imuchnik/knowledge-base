@@ -3,6 +3,7 @@ import time
 import re
 from app.services.vector_store import VectorStore
 from app.models.schemas import SearchResult, AnswerResponse, CompletenessResult, CompletenessResponse
+from app.core.config import settings
 
 class QAService:
     def __init__(self, vector_store: VectorStore):
@@ -17,7 +18,8 @@ class QAService:
         
         relevant_chunks = await self.vector_store.search(
             query=question,
-            max_results=max_results
+            max_results=max_results,
+            similarity_threshold=settings.similarity_threshold
         )
         
         if not relevant_chunks:
@@ -122,7 +124,7 @@ class QAService:
             relevant_chunks = await self.vector_store.search(
                 query=topic,
                 max_results=10,
-                document_ids=document_ids
+                similarity_threshold=settings.similarity_threshold
             )
             
             if relevant_chunks:

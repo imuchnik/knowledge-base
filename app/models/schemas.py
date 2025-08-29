@@ -29,7 +29,6 @@ class DocumentUpload(BaseModel):
 class SearchQuery(BaseModel):
     query: str
     max_results: Optional[int] = Field(default=10, le=50)
-    document_ids: Optional[List[str]] = None
     similarity_threshold: Optional[float] = Field(default=0.7, ge=0.0, le=1.0)
     
 class SearchResult(BaseModel):

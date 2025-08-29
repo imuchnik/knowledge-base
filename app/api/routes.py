@@ -92,7 +92,6 @@ async def search_documents(query: SearchQuery):
     results = await vector_store.search(
         query=query.query,
         max_results=query.max_results,
-        document_ids=query.document_ids,
         similarity_threshold=query.similarity_threshold
     )
     
