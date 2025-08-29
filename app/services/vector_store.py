@@ -103,17 +103,22 @@ class VectorStore:
         return search_results
     
     async def delete_document(self, document_id: str) -> Dict[str, Any]:
-        where_clause = {"document_id": document_id}
+        # Get all chunks and filter by document_id prefix in chunk_id
+        all_results = self.collection.get()
         
-        results = self.collection.get(where=where_clause)
-        chunks_to_delete = len(results["ids"])
+        chunks_to_delete = []
+        if all_results and all_results.get("ids"):
+            for chunk_id in all_results["ids"]:
+                # Check if chunk_id starts with document_id followed by underscore
+                if chunk_id.startswith(f"{document_id}_"):
+                    chunks_to_delete.append(chunk_id)
         
-        if chunks_to_delete > 0:
-            self.collection.delete(ids=results["ids"])
+        if chunks_to_delete:
+            self.collection.delete(ids=chunks_to_delete)
             
         return {
             "document_id": document_id,
-            "chunks_deleted": chunks_to_delete
+            "chunks_deleted": len(chunks_to_delete)
         }
     
     async def update_document(self, chunks: List[Dict[str, Any]], document_id: str) -> Dict[str, Any]:
