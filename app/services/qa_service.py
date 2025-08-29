@@ -1,13 +1,6 @@
 from typing import List, Dict, Any, Optional, Tuple
-import asyncio
-from datetime import datetime
 import time
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from collections import Counter
 import re
-
-from app.core.config import settings
 from app.services.vector_store import VectorStore
 from app.models.schemas import SearchResult, AnswerResponse, CompletenessResult, CompletenessResponse
 
