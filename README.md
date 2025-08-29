@@ -190,6 +190,26 @@ cp .env.example .env
 # Edit .env to customize settings (all values have defaults)
 ```
 
+## Configuration
+
+The application can be configured using environment variables. Copy `.env.example` to `.env` and modify as needed.
+
+### Environment Variables
+
+| Variable | Default Value | Description |
+|----------|---------------|-------------|
+| `APP_NAME` | "Knowledge Base Search API" | Application name |
+| `DEBUG` | `false` | Enable debug mode |
+| `CHROMA_PERSIST_DIRECTORY` | "./chroma_db" | ChromaDB storage directory |
+| `UPLOAD_DIR` | "./uploaded_documents" | Directory for uploaded files |
+| `MAX_FILE_SIZE` | `104857600` | Maximum file size (100MB) |
+| `BATCH_SIZE` | `10` | Batch processing size |
+| `EMBEDDING_MODEL` | "sentence-transformers/all-MiniLM-L6-v2" | Sentence transformer model |
+| `CHUNK_SIZE` | `1000` | Text chunk size for processing |
+| `CHUNK_OVERLAP` | `200` | Overlap between text chunks |
+| `MAX_SEARCH_RESULTS` | `10` | Maximum search results returned |
+| `SIMILARITY_THRESHOLD` | `0.7` | Minimum similarity score for results |
+
 ## Running the System
 
 1. Start the API server:
